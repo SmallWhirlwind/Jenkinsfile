@@ -1,14 +1,24 @@
-node {
+pipeline {
+    agent any
 
-  stage ('Download Code') {
-    git 'https://github.com/phodal/growth-studio'
-  }
+    triggers {
+        pollSCM('* * * * *')
+    }
 
-  stage ('Copy Webpage to Nginx') {
-    sh './ci/setup.sh'
-  }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '7'))
+    }
 
-  stage ('Restart Nginx') {
-    sh './ci/install.sh'
-  }
+    stages {
+        stage('Copy Webpage to Nginx') {
+            steps {
+                sh 'cp helloWorld.html /home/webpage'
+            }
+        }
+        stage('Restart Nginx') {
+            steps {
+                sh 'sudo nginx -s reload'
+            }
+        }
+    }
 }
