@@ -1,8 +1,8 @@
 node {
     stage('Copy Webpage to Nginx') {
-        echo '123'
+        sh '''cp helloWorld.html /home/webpage'''
     }
     stage('Restart Nginx') {
-        echo '456'
+        sh '''nginx -s reload'''
     }
 }
