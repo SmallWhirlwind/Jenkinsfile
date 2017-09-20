@@ -3,9 +3,11 @@ node {
         git 'https://github.com/SmallWhirlwind/Jenkinsfile.git'
     }
     stage('Copy Webpage to Nginx') {
-        sh '''cp index.html /home/webpage'''
+        sh '''
+        sudo rm /home/webpage/index.html
+        sudo cp index.html /home/webpage'''
     }
     stage('Restart Nginx') {
-        sh '''nginx -s reload'''
+        sh '''sudo nginx -s reload'''
     }
-}
+}}
