@@ -10,4 +10,4 @@ node {
     stage('Restart Nginx') {
         sh '''sudo nginx -s reload'''
     }
-}}
+}
